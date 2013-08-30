@@ -3,7 +3,7 @@ CREATE DATABASE chat;
 USE chat;
 
 CREATE TABLE messages (
- /* Describe your table here.*/
+  id int(5),handle varchar(20), time timestamp, message text(400)
 );
 
 /* You can also create more tables, if you need them... */
