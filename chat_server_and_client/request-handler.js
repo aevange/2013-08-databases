@@ -1,4 +1,4 @@
-var storage = []; //END GOAL: USE MYSQL instead of this variable
+var mysql = require('mysql');
 
 var headers = {
   "access-control-allow-origin": "*",
@@ -8,6 +8,14 @@ var headers = {
   "Content-Type": "application/json"
 };
 
+var dbConnection = mysql.createConnection({
+  user: "root",
+  password: "plantlife",
+  database: "chat"
+});
+
+dbConnection.connect();
+
 var handlePost = function(request, response) {
 
   var body = "";
@@ -16,9 +24,14 @@ var handlePost = function(request, response) {
   });
 
   request.on('end', function(){
-    var test = JSON.parse(body);
+    var data = JSON.parse(body);
 
-    storage.unshift(test);
+    var query = dbConnection.query('INSERT INTO messages SET ?', {username: data.username, message: data.message}, function(err, res){
+      if (err){
+        console.log(err);
+      }
+    });
+
     response.writeHead(201, headers);
     response.end();
   });
@@ -27,14 +40,15 @@ var handlePost = function(request, response) {
 var handleGet = function(request, response){
   var urls = "http://127.0.0.1:8080/classes/";
 
-  // if (request.uri === urls + "messages" || request.url === urls + "room1") {
-  //   console.log(request);
-  //   response.writeHead(200);
-  // } else {
-  //   response.writeHead(404, headers);
-  // }
-  response.writeHead(200, headers);
-  response.end(JSON.stringify(storage.slice(0)));
+
+  var query = dbConnection.query('SELECT * FROM messages', function(err, res){
+    if (err){
+      console.log(err);
+    }
+    res.reverse();
+    response.writeHead(200, headers);
+    response.end(JSON.stringify(res));
+  });
 };
 
 

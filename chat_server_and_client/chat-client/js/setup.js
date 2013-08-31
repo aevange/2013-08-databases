@@ -11,7 +11,7 @@ var Message = Backbone.Model.extend({});
 var MessageView = Backbone.View.extend({
   render: function(){
     var name = $('<span/>').text(this.model.get("username")).addClass('name');
-    var txt = $('<span/>').text(": " +this.model.get("text"));
+    var txt = $('<span/>').text(": " +this.model.get("message"));
     this.$el.append(name).append(txt);
 
     if(friendHash[this.model.get("username")]) {
@@ -51,7 +51,7 @@ $(document).ready(function(){
   });
 
   $('#submit').on('click', function(){
-    obj.text = $('#inputBox').val();
+    obj.message = $('#inputBox').val();
 
     addPost();
     $('#inputBox').val('');
