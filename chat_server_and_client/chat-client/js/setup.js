@@ -61,7 +61,12 @@ $(document).ready(function(){
     $.ajax(setLink(), {
       contentType: 'application/json',
       success: function(response){
-        response = JSON.parse(response);
+        try{
+          response = JSON.parse(response);
+        }
+        catch(e){
+          console.log(e + " error");
+        }
         $('#container').html('');
         var input;
         var messages = $.map(response, function(messageData){
