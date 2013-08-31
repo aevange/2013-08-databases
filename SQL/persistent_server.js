@@ -6,8 +6,8 @@ var mysql = require('mysql');
  * database: "chat" specifies that we're using the database called
  * "chat", which we created by running schema.sql.*/
 var dbConnection = mysql.createConnection({
-  user: "",
-  password: "",
+  user: "root",
+  password: "plantlife",
   database: "chat"
 });
 
@@ -19,5 +19,4 @@ dbConnection.connect();
 
 /* You already know how to create an http server from the previous
  * assignment; you can re-use most of that code here. */
-
 dbConnection.end();
