@@ -17,8 +17,8 @@ var dbConnection = mysql.createConnection({
 dbConnection.connect();
 
 var handlePost = function(request, response) {
-
   var body = "";
+
   request.on('data', function (chunk) {
     body += chunk;
   });

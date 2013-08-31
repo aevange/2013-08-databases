@@ -9,7 +9,7 @@ describe("Persistent Node Chat Server", function() {
 
   beforeEach(function() {
     dbConnection = mysql.createConnection({
-      user: "root",
+      user: "",
       password: "plantlife",
       database: "chat"
     });
@@ -30,7 +30,7 @@ describe("Persistent Node Chat Server", function() {
 
     // Post a message to the node chat server:
     request({method: "POST",
-             uri: "http://127.0.0.1:8080/classes/room1",
+             uri: "http://127.0.0.1:8080",
              form: {username: "Valjean",
                     message: "In mercy's name, three days is all I need."}
             },
